@@ -28,10 +28,18 @@ function getProblem(req, res) {
   });
 }
 
-function getProblems(req, res) {
-  return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-    message: "Not Implemented",
-  });
+async function getProblems(req, res) {
+  try {
+    const response = await problemService.getAllProblems(req.body);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Successfully fetched all problems",
+      error: {},
+      data: response,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 function deleteProblems(req, res) {

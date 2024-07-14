@@ -5,16 +5,16 @@ class ProblemService {
     this.problemRepository = problemRepository;
   }
   async createProblem(problemData) {
-    try {
-      problemData.description = sanitizeMarkdown(problemData.description);
+    problemData.description = sanitizeMarkdown(problemData.description);
 
-      const problem = await this.problemRepository.createProblem(problemData);
+    const problem = await this.problemRepository.createProblem(problemData);
 
-      return problem;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    return problem;
+  }
+
+  async getAllProblems() {
+    const problems = await this.problemRepository.getAllProblems();
+    return problems;
   }
 }
 module.exports = ProblemService;
