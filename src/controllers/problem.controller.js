@@ -22,10 +22,18 @@ async function addProblem(req, res, next) {
   }
 }
 
-function getProblem(req, res) {
-  return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-    message: "Not Implemented",
-  });
+async function getProblem(req, res) {
+  try {
+    const problem = await problemService.getProblem(req.params.id);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Successfully fetched the problem",
+      error: {},
+      data: problem,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function getProblems(req, res) {
